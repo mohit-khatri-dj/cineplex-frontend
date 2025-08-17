@@ -19,7 +19,8 @@ function RegisterForm({ onRegister }) {
       setForm({
         username: "",
         email: "",
-        password: ""
+        password: "",
+        isLogin: false
     })
     
   };

@@ -27,7 +27,8 @@ function LoginForm({ onLogin, error }) {
     if (onLogin) onLogin(form);
     setForm({
         username: "",
-        password: ""
+        password: "",
+        isLogin: true
     });
   };
 
