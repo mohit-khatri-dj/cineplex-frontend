@@ -12,7 +12,7 @@ function BookingHistory() {
       setLoading(false);
       return;
     }
-    axios.get(`http://127.0.0.1:8000/api/booking-history/?email=${userEmail}`)
+    axios.get(`https://api-cineplex.onrender.com/api/booking-history/?email=${userEmail}`)
       .then(res => {       
         setBookings(res.data || []);
         setLoading(false);
