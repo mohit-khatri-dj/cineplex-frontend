@@ -31,7 +31,7 @@ function AppContent() {
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;  
     document.documentElement.setAttribute("data-color-scheme", prefersDark ? "dark" : "light");
 
-    axios.get('https://api-cineplex.onrender.com/api/movies/')
+    axios.get('https://apiuser1998.pythonanywhere.com/api/movies/')
       .then(response => {
         console.log("Movies fetched successfully:", response.data);
         setMovies(response.data);
@@ -71,7 +71,7 @@ function AppContent() {
     console.log(form);
     
     if(form.isLogin){
-      axios.post('https://api-cineplex.onrender.com/api/api-token-auth/', {
+      axios.post('https://apiuser1998.pythonanywhere.com/api/api-token-auth/', {
         username: form.username,  // Use 'username' since DRF expects username field
         password: form.password,
         })
@@ -97,7 +97,7 @@ function AppContent() {
     }
     else{
       if(form){
-        axios.post("https://api-cineplex.onrender.com/api/register/", form)
+        axios.post("https://apiuser1998.pythonanywhere.com/api/register/", form)
         .then(response => {
             console.log("Registration successful:", response.data);
             alert("Registration successful!");        

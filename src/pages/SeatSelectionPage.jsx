@@ -41,13 +41,13 @@ function SeatSelectionPage({ movie, showtime, selectedSeats, setSelectedSeats, s
 
   useEffect(() => {
     setSelectedShow(null)
-    axios.get(`https://api-cineplex.onrender.com/api/movies/${id}/`)
+    axios.get(`https://apiuser1998.pythonanywhere.com/api/movies/${id}/`)
       .then(res => setMovie(res.data))
       .catch(err => console.error(err));
   }, [id]);
 
   useEffect(() => {
-    axios.get(`https://api-cineplex.onrender.com/api/show_users/${localStorage.getItem("email")}/`)
+    axios.get(`https://apiuser1998.pythonanywhere.com/api/show_users/${localStorage.getItem("email")}/`)
         .then(response => {
           setUserID(response.data.id);    
         })
@@ -110,7 +110,7 @@ function SeatSelectionPage({ movie, showtime, selectedSeats, setSelectedSeats, s
     };
 
     
-    axios.get(`https://api-cineplex.onrender.com/api/booked-seats/?movie_id=${movie?.id}&theatre_id=${show.theatre.id}&date=${show.date}&time=${show.time}`)
+    axios.get(`https://apiuser1998.pythonanywhere.com/api/booked-seats/?movie_id=${movie?.id}&theatre_id=${show.theatre.id}&date=${show.date}&time=${show.time}`)
         .then(response => {
           // Store booked seats from response
           console.log("Booked seats:", response.data.booked_seats);
@@ -151,7 +151,7 @@ function SeatSelectionPage({ movie, showtime, selectedSeats, setSelectedSeats, s
     
     
     // 1. Create order on backend
-    axios.post("https://api-cineplex.onrender.com/api/create-razorpay-order/", {
+    axios.post("https://apiuser1998.pythonanywhere.com/api/create-razorpay-order/", {
       amount: totalAmount * 100, // in paise
       currency: "INR",
       receipt: `receipt_${Math.floor(Math.random()*1000000)}`,
@@ -175,7 +175,7 @@ function SeatSelectionPage({ movie, showtime, selectedSeats, setSelectedSeats, s
         order_id: res.data.order.id,
         handler: function (response) {
           // 3. On payment success, confirm booking in backend
-          axios.post("https://api-cineplex.onrender.com/api/seat-booking/", {
+          axios.post("https://apiuser1998.pythonanywhere.com/api/seat-booking/", {
             user: userId,
             movie: movie.id,
             show: selectedShow.id,
