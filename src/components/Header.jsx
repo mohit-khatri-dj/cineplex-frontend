@@ -65,6 +65,16 @@ function Header({ onNavigate }) {
               Contact
             </Link>
           </li>
+          <li className="nav__item">
+            <Link
+              to="/recommendations"
+              className={`nav__link${
+                location.pathname === "/recommendations" ? " active" : ""
+              }`}
+            >
+              AI recommendations
+            </Link>
+          </li>
         </ul>
         <div className="nav__actions">
           {!isLoggedIn && (
@@ -168,9 +178,9 @@ function Header({ onNavigate }) {
               )}
             </div>
           )}
-          <button className="nav__toggle" id="nav-toggle">
+          {/* <button className="nav__toggle" id="nav-toggle">
             ☰
-          </button>
+          </button> */}
         </div>
       </nav>
     </header>

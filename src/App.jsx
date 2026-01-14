@@ -10,9 +10,11 @@ import ContactPage from "./pages/ContactPage";
 import TrailerModal from "./components/TrailerModal";
 import RegisterForm from "./components/RegisterForm";
 import LoginForm from "./components/LoginForm";
+import Recommendations from "./pages/Recommendations";
+import BookingHistory from "./pages/BookingHistory";
 import "./style.css";
 import axios from "axios";
-import BookingHistory from "./pages/BookingHistory";
+
 
 function AppContent() {
   // Global state
@@ -30,8 +32,8 @@ function AppContent() {
   useEffect(() => {
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;  
     document.documentElement.setAttribute("data-color-scheme", prefersDark ? "dark" : "light");
-
-    axios.get('https://apiuser1998.pythonanywhere.com/api/movies/')
+// https://apiuser1998.pythonanywhere.com
+    axios.get('http://127.0.0.1:8000/api/movies/')
       .then(response => {
         console.log("Movies fetched successfully:", response.data);
         setMovies(response.data);
@@ -58,20 +60,9 @@ function AppContent() {
   const handleSelectMovie = (movie) => setSelectedMovie(movie);
   
 
-  // Auth wrapper
-  // function RequireAuth({ children }) {
-  //   const token = localStorage.getItem("authToken");
-  //   if (!token) {
-  //     return <Navigate to="/login" replace />;
-  //   }
-  //   return children;
-  // }
-
-  const handleLogin = (form) => {
-    console.log(form);
-    
+  const handleLogin = (form) => {  
     if(form.isLogin){
-      axios.post('https://apiuser1998.pythonanywhere.com/api/api-token-auth/', {
+      axios.post('http://127.0.0.1:8000//api/api-token-auth/', {
         username: form.username,  // Use 'username' since DRF expects username field
         password: form.password,
         })
@@ -97,13 +88,12 @@ function AppContent() {
     }
     else{
       if(form){
-        axios.post("https://apiuser1998.pythonanywhere.com/api/register/", form)
+        axios.post("http://127.0.0.1:8000//api/register/", form)
         .then(response => {
             console.log("Registration successful:", response.data);
             alert("Registration successful!");        
         })
         .catch(error => {
-            console.error("Error booking seats:", error);
             alert("Failed to book seats. Please try again.");
         });
     }else{
@@ -181,6 +171,20 @@ function AppContent() {
           />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/booking-history" element={<BookingHistory />} />
+          <Route
+            path="/recommendations"
+            element={
+              // <RequireAuth>
+                <Recommendations
+                  movies={moviesData}
+                  onBook={setSelectedMovie}
+                  onDetails={handleSelectMovie}
+                  onTrailer={openTrailer}
+                  setCurrentPage={setCurrentPage}
+                />
+              // </RequireAuth>
+            }
+          />
         </Routes>
       </main>
       <Footer />

@@ -2,9 +2,6 @@ import React, { useState } from "react";
 import MovieCard from "../components/MovieCard";
 
 function MoviesPage({ movies, onDetails, onBook, setCurrentPage }) {
-  const [genre, setGenre] = useState("");
-  const [rating, setRating] = useState("");
-  const [year, setYear] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
 
   const filteredMovies = movies.filter(movie =>
